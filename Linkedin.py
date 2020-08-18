@@ -94,6 +94,7 @@ for i in range(pages):
                 # Click send
                 main_aux = driver.find_element_by_class_name("pr3")
                 main_aux.find_element_by_class_name("ml4").click()
+                time.sleep(1)
 
             # Change to "Save" in your script
             if "Salvar" in b.text:
