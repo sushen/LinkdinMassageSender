@@ -3,14 +3,24 @@
 
 
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 import time
-from selenium.webdriver.support import expected_conditions as EC
+import os
+
+
 
 options = webdriver.ChromeOptions()
 options.add_argument("--start-maximized")
 driver = webdriver.Chrome("chromedriver", chrome_options=options)
 driver.implicitly_wait(60)  # seconds
+
+#What will be searched
+search_parameter = "Education"
+
+#Time waiting for page
+waiting_for_page = 15
+
+#Time per user
+time_per_user = 4
 
 driver.get("https://www.linkedin.com/")
 
@@ -29,29 +39,32 @@ password = os.environ.get('my_Linkdin_password')
 driver.find_element_by_id("session_key").send_keys(username)
 driver.find_element_by_id("session_password").send_keys(password)
 time.sleep(1)
-driver.implicitly_wait(60)  # seconds
 
 driver.find_element_by_class_name("sign-in-form__submit-button").click()
+time.sleep(waiting_for_page)
 
 # Go to leads page
 driver.find_element_by_class_name("nav-item__wormhole").click()# seconds
 driver.switch_to.window(driver.window_handles[1])
-time.sleep(5)
+time.sleep(waiting_for_page)
 # Search Education
-driver.find_element_by_id("global-typeahead-search-input").send_keys("Education")
+driver.find_element_by_id("global-typeahead-search-input").send_keys(search_parameter)
 time.sleep(2)
-driver.implicitly_wait(60)  # seconds
 
 try:
     driver.find_elements_by_class_name("artdeco-button--tertiary")[2].click()
 except:
     driver.find_elements_by_class_name("artdeco-button--tertiary")[1].click()
 
+
+time.sleep(waiting_for_page)
+
 pages = int(
     driver.find_element_by_class_name("search-results__pagination-list").find_elements_by_tag_name("li")[-1].text.split(
         "…")[-1])
 
 
+driver.implicitly_wait(10)  # seconds
 for i in range(pages):
 
     # Go trough the page users and check if they can be messaged
@@ -59,7 +72,7 @@ for i in range(pages):
 
     for people in all_people_in_page:
 
-        time.sleep(3)
+        time.sleep(time_per_user)
 
         aux = 0
         while aux == 0:
@@ -126,3 +139,4 @@ for i in range(pages):
 
 
     driver.find_element_by_class_name("search-results__pagination-next-button").click()
+    time.sleep(waiting_for_page)
