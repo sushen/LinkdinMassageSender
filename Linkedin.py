@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-
+import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
@@ -18,6 +18,7 @@ driver.get("https://www.linkedin.com/")
 '''
 f = open("user.txt", "r")
 data = f.read()
+
 username = str(data).split("\n")[0]
 password = str(data).split("\n")[1]'''
 
@@ -34,14 +35,15 @@ driver.implicitly_wait(60)  # seconds
 driver.find_element_by_class_name("sign-in-form__submit-button").click()
 
 # Go to leads page
-driver.find_element_by_class_name("nav-item__wormhole").click()# seconds
+driver.find_element_by_class_name("nav-item__wormhole").click()
+driver.implicitly_wait(60)  # seconds
 driver.switch_to.window(driver.window_handles[1])
-time.sleep(5)
+
 # Search Education
-driver.find_element_by_id("global-typeahead-search-input").send_keys("Education")
-time.sleep(2)
 driver.implicitly_wait(60)  # seconds
 
+driver.find_element_by_id("global-typeahead-search-input").send_keys("Education")
+time.sleep(1)
 try:
     driver.find_elements_by_class_name("artdeco-button--tertiary")[2].click()
 except:
@@ -51,6 +53,11 @@ pages = int(
     driver.find_element_by_class_name("search-results__pagination-list").find_elements_by_tag_name("li")[-1].text.split(
         "…")[-1])
 
+time.sleep(3)
+
+pages = int(
+    driver.find_element_by_class_name("search-results__pagination-list").find_elements_by_tag_name("li")[-1].text.split(
+        "…")[-1])
 
 for i in range(pages):
 
@@ -61,68 +68,54 @@ for i in range(pages):
 
         time.sleep(3)
 
-        aux = 0
-        while aux == 0:
-            buttons = people.find_elements_by_tag_name("button")
+        buttons = people.find_elements_by_tag_name("button")
 
-            try:
-                for b in range(len(buttons)):
-                    buttons = people.find_elements_by_tag_name("button")
+        for b in buttons:
 
-                    # Change to "Save" in your script
-                    if "Salvar" in buttons[b].text:
-                        buttons[b].click()
+            # Change to "Send message"
+            if "Send message" in b.text:
+                b.click()
+
+                time.sleep(2)
+
+                # Send message
+                # Subject
+                subject = "I"
+
+                # Message
+                message = "I"
+
+                driver.find_element_by_class_name("compose-form__subject-field").send_keys(subject)
+                time.sleep(1)
+
+                driver.find_element_by_class_name("compose-form__message-field").send_keys(message)
+                time.sleep(4)
+
+                # Click send
+                main_aux = driver.find_element_by_class_name("pr3")
+                main_aux.find_element_by_class_name("ml4").click()
+                time.sleep(1)
+
+            # Change to "Save" in your script
+            if "Save" in b.text:
+                b.click()
+                time.sleep(2)
+
+                lists = people.find_element_by_class_name("save-to-list-dropdown").find_elements_by_tag_name("li")
+
+                for ls in lists:
+
+                    # You have to change this name for your desired list
+                    if "TestList" in ls.text:
+                        ls.click()
+
                         time.sleep(1)
 
-                        lists = people.find_element_by_class_name("save-to-list-dropdown").find_elements_by_tag_name("li")
-
-                        for ls in lists:
-
-                            # You have to change this name for your desired list
-                            if "Lista de leads de Pedro" in ls.text:
-                                ls.click()
-
-                                time.sleep(1)
-
-                                try:
-                                    driver.implicitly_wait(1)  # seconds
-                                    bs = driver.find_element_by_class_name("lead-cta-form__save-without-company")
-                                    bs.click()
-                                    break
-                                except Exception as e:
-                                    print(e)
-
-                        # Change to "Send message"
-                    if "Enviar mensagem" in buttons[b].text:
-                        buttons[b].click()
-
-                        time.sleep(2)
-
-                        # Send message
-                        # Subject
-                        subject = "I"
-
-                        # Message
-                        message = "I"
-
                         try:
-                            driver.find_element_by_class_name("compose-form__subject-field").send_keys(subject)
-                            time.sleep(1)
-
-                            driver.find_element_by_class_name("compose-form__message-field").send_keys(message)
-                            time.sleep(3)
-
-                            # Click send
-                            main_aux = driver.find_element_by_class_name("pr3")
-                            main_aux.find_element_by_class_name("ml4").click()
+                            driver.find_element_by_class_name("lead-cta-form__save-without-company").click()
+                            break
                         except:
-                            pass
-
-                        aux = 1
-            except:
-                continue
-
-
+                            break
 
 
     driver.find_element_by_class_name("search-results__pagination-next-button").click()
