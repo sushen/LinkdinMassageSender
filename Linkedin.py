@@ -25,12 +25,12 @@ time_per_user = 4
 driver.get("https://www.linkedin.com/")
 
 # Login
-'''
-f = open("user.txt", "r")
+
+'''f = open("user.txt", "r")
 data = f.read()
 username = str(data).split("\n")[0]
-password = str(data).split("\n")[1]'''
-
+password = str(data).split("\n")[1]
+'''
 
 # I use environment veriable base on this tutorials https://www.youtube.com/watch?v=IolxqkL7cD8
 username = os.environ.get('my_Linkdin_username')
@@ -87,24 +87,24 @@ for i in range(pages):
                         buttons[b].click()
                         time.sleep(1)
 
-                        lists = people.find_element_by_class_name("save-to-list-dropdown").find_elements_by_tag_name("li")
+                        lists = people.find_element_by_class_name("save-to-list-dropdown").find_elements_by_tag_name("li")[2].find_elements_by_tag_name("li")
 
                         for ls in lists:
-
                             # You have to change this name for your desired list
                             if "Lista de leads de Pedro" in ls.text:
+
                                 ls.click()
 
                                 time.sleep(1)
 
                                 try:
-                                    driver.implicitly_wait(1)  # seconds
                                     bs = driver.find_element_by_class_name("lead-cta-form__save-without-company")
                                     bs.click()
                                     break
                                 except Exception as e:
-                                    print(e)
+                                    break
 
+                            time.sleep(1)
                         # Change to "Send message"
                     if "Enviar mensagem" in buttons[b].text:
                         buttons[b].click()
