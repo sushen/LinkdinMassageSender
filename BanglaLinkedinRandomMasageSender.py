@@ -18,20 +18,20 @@ driver.implicitly_wait(60)  # seconds
 
 #Change the messages as you wish, one of them will be randomly picked
 subjects = [
-    "selling is an art",
-    "selling is ultimate power",
-    "Powerful way of sealing",
-    "build trust sealing perspective ",
-    "make quick money "
+    "আপনার মতামত চাই",
+    "আপনার পরামর্শ চাই",
+    "আরও ভালো করতে সহযোগিতা চাই ",
+    "আপনার পার্টনারশিপ চাই",
+    "কোর্সটি সেল করতে চাই "
 ]
 
 
 #Change the messages as you wish, one of them will be randomly picked
 messages = [
-    "In this tutorials I show you how to sell. After seeing this content you never will be alone anymore.\n \nhttps://www.sushenbiswas.com/course/st/ ",
-    "After seeing this content you never will be alone anymore.\n \nhttps://www.sushenbiswas.com/course/st/",
-    "Team is always powerful than individual. In this tutorials I show you how to sell. \n \nhttps://www.sushenbiswas.com/course/st/",
-    "Team is always powerful than individual.After seeing this content you never will be alone anymore. \n \nhttps://www.sushenbiswas.com/course/st/"
+    "বাংলা কোড মানে বাংলায় লেখা কোড।বাংলা পাইথন কোড মানে পাইথনের সিনট্যাক্স ব্যাবহার করেছি বাকিটা বাংলায় লিখেছি । \n \nhttps://sushenbiswas.com/course/learn-python-together/ ",
+    "আমি এই টিউটরিয়াল সিরিজে বাংলা পাইথন কোড লিখেছি,  গিটহাবে সেই কোড কিভাবে সারাবিশ্বের কাছে উন্মুক্ত করা যায় দেখিয়েছি, ব্লকচেইন সমন্ধে সেটার মধ্যে বলেছি।\n \nhttps://sushenbiswas.com/course/learn-python-together/",
+    "শুরুটা বাংলায় হলে, নিজের ভাষায় হলে দারুন শুরু হয় । ভয় হিন শুরু মানেই নিজের ভাষাতে শুরু । \n \nhttps://sushenbiswas.com/course/learn-python-together/",
+    "ভয় হিন শুরু মানেই নিজের ভাষাতে শুরু ।  \n \nhttps://sushenbiswas.com/course/learn-python-together/"
 ]
 
 
@@ -40,10 +40,10 @@ messages = [
 search_parameter = "sell"
 
 #Time waiting for page
-waiting_for_page = 15
+waiting_for_page = random.randint(9,15)
 
 #Time per user
-time_per_user = 4
+time_per_user = random.randint(4,9)
 
 driver.get("https://www.linkedin.com/")
 
@@ -114,7 +114,7 @@ for i in range(pages):
 
                         for ls in lists:
                             # You have to change this name for your desired list
-                            if "TestList" in ls.text:
+                            if "Python Bangladesh" in ls.text:
 
                                 ls.click()
 
