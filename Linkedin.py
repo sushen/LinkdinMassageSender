@@ -64,12 +64,15 @@ driver.find_element_by_class_name("sign-in-form__submit-button").click()
 time.sleep(waiting_for_page)
 
 # Go to leads page
-driver.find_element_by_class_name("nav-item__wormhole").click()# seconds
+driver.find_element_by_class_name("global-nav__content").find_elements_by_tag_name("a")[-1].click()
 driver.switch_to.window(driver.window_handles[1])
 time.sleep(waiting_for_page)
 # Search Education
 driver.find_element_by_id("global-typeahead-search-input").send_keys(search_parameter)
 time.sleep(2)
+
+
+
 
 try:
     driver.find_elements_by_class_name("artdeco-button--tertiary")[2].click()
@@ -78,6 +81,9 @@ except:
 
 
 time.sleep(waiting_for_page)
+
+input("Enter something to continue the script : \n")
+
 
 pages = int(
     driver.find_element_by_class_name("search-results__pagination-list").find_elements_by_tag_name("li")[-1].text.split(
