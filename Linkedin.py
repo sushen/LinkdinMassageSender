@@ -131,29 +131,10 @@ for i in range(pages):
                                     break
 
                             time.sleep(1)
-                        # Change to "Send message"
-                    if "Enviar mensagem" in buttons[b].text:
-                        buttons[b].click()
 
-                        time.sleep(2)
-
-                        
-                        try:
-                            driver.find_element_by_class_name("compose-form__subject-field").send_keys(random.choice(subjects))
-                            time.sleep(1)
-
-                            driver.find_element_by_class_name("compose-form__message-field").send_keys(random.choice(messages))
-                            time.sleep(3)
-
-                            # Click send
-                            main_aux = driver.find_element_by_class_name("pr3")
-                            main_aux.find_element_by_class_name("ml4").click()
-                        except:
-                            driver.find_element_by_class_name("message-overlay").find_element_by_tag_name("header").find_elements_by_tag_name("button")[-1].click()
-                            time.sleep(1)
-
-                        aux = 1
+                aux = 1
             except:
+                aux = 1
                 continue
 
 
