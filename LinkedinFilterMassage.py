@@ -37,13 +37,13 @@ messages = [
 
 
 #What will be searched
-search_parameter = "Python Bangladesh"
+search_parameter = "Python"
 
 #Time waiting for page
-waiting_for_page = random.randint(9,15)
+waiting_for_page = 15
 
 #Time per user
-time_per_user = random.randint(4,9)
+time_per_user = 4
 
 driver.get("https://www.linkedin.com/")
 
@@ -150,8 +150,11 @@ for i in range(pages):
                             time.sleep(1)
 
                         aux = 1
-
             except:
                 continue
+
+
+
+
     driver.find_element_by_class_name("search-results__pagination-next-button").click()
     time.sleep(waiting_for_page)
