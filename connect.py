@@ -75,6 +75,7 @@ people = people[1:]
 
 
 for p in range(len(people)):
+    time.sleep(2)
     people = driver.find_element_by_tag_name("table").find_elements_by_tag_name("tr")
     people = people[1:]
 
@@ -140,7 +141,7 @@ for p in range(len(people)):
             pass
 
 
+        time.sleep(3)
 
         driver.find_element_by_id("content-main").click()
-        time.sleep(3)
 
