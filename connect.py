@@ -139,5 +139,8 @@ for p in range(len(people)):
         except:
             pass
 
+
+
+        driver.find_element_by_id("content-main").click()
         time.sleep(3)
 
