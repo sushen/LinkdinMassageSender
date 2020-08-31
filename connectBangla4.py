@@ -11,22 +11,25 @@ import os
 
 #Change the messages as you wish, one of them will be randomly picked
 subjects = [
-    "Subject 1",
+    "আপনার মতামত চাই",
+    "আপনার পরামর্শ চাই",
+    "আরও ভালো করতে সহযোগিতা চাই ",
+    "আপনার পার্টনারশিপ চাই",
+    "কোর্সটি সেল করতে চাই "
 ]
 
 
 #Change the messages as you wish, one of them will be randomly picked
 messages = [
-    "Message 1",
-    "Message 2",
-    "Message 3",
-    "Message 4",
-    "Message 5"
+    "বাংলা কোড মানে বাংলায় লেখা কোড।বাংলা পাইথন কোড মানে পাইথনের সিনট্যাক্স ব্যাবহার করেছি বাকিটা বাংলায় লিখেছি । \n \nhttps://sushenbiswas.com/course/learn-python-together/ ",
+    "আমি এই টিউটরিয়াল সিরিজে বাংলা পাইথন কোড লিখেছি,  গিটহাবে সেই কোড কিভাবে সারাবিশ্বের কাছে উন্মুক্ত করা যায় দেখিয়েছি, ব্লকচেইন সমন্ধে সেটার মধ্যে বলেছি।\n \nhttps://sushenbiswas.com/course/learn-python-together/",
+    "শুরুটা বাংলায় হলে, নিজের ভাষায় হলে দারুন শুরু হয় । ভয় হিন শুরু মানেই নিজের ভাষাতে শুরু । \n \nhttps://sushenbiswas.com/course/learn-python-together/",
+    "ভয় হিন শুরু মানেই নিজের ভাষাতে শুরু ।  \n \nhttps://sushenbiswas.com/course/learn-python-together/"
 ]
 
 
 #Message to send when connecting
-message_to_connect = "Hello Im connecting to you"
+message_to_connect = "আপনার সাথে যোগাযোগ করতে চাই ।"
 
 
 
@@ -65,7 +68,7 @@ time.sleep(waiting_for_page)
 
 
 #Replace this with the link of your list
-url = "https://www.linkedin.com/sales/lists/people/6700717890691194880?sortCriteria=CREATED_TIME"
+url = "https://www.linkedin.com/sales/lists/people/6703506863146840064?sortCriteria=CREATED_TIME"
 
 driver.get(url)
 time.sleep(waiting_for_page)
@@ -98,8 +101,8 @@ for p in range(len(people)):
 
             break
 
-        #Change to "Message"
-        elif "Enviar mensagem" in aux[m].text:
+        #Change to "Send Message"
+        elif "Message" in aux[m].text:
             aux[m].click()
 
             time.sleep(2)
@@ -127,8 +130,8 @@ for p in range(len(people)):
 
 
 
-        # Change to "Connect"
-        elif "Conectar" in aux[m].text and need_connect:
+        # Change to "connect"
+        elif "Connect" in aux[m].text and need_connect:
             aux[m].click()
             time.sleep(1)
 
