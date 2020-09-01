@@ -26,7 +26,11 @@ messages = [
 
 
 #Message to send when connecting
-message_to_connect = "Hello Im connecting to you"
+message_to_connect = [
+    "connect 1",
+    "connect 2",
+    "connect 3"
+]
 
 
 
@@ -70,79 +74,92 @@ url = "https://www.linkedin.com/sales/lists/people/6700717890691194880?sortCrite
 driver.get(url)
 time.sleep(waiting_for_page)
 
-people = driver.find_element_by_tag_name("table").find_elements_by_tag_name("tr")
-people = people[1:]
+try:
+    pages = int(driver.find_element_by_class_name("search-results__pagination-list").find_elements_by_tag_name("li")[-1].text.split("…")[-1])
+except:
+    pages = 1
 
 
-for p in range(len(people)):
+
+for i in range(pages):
+
     people = driver.find_element_by_tag_name("table").find_elements_by_tag_name("tr")
     people = people[1:]
-    people[p].find_elements_by_tag_name("button")[-1].click()
-    time.sleep(2)
 
-    menu = people[p].find_element_by_class_name("artdeco-dropdown__content-inner").find_elements_by_tag_name("li")
-    need_connect = False
 
-    for m in range(len(menu)):
-        driver.implicitly_wait(3)
-        driver.find_element_by_id("content-main").click()
-        time.sleep(1)
+    for p in range(len(people)):
+        people = driver.find_element_by_tag_name("table").find_elements_by_tag_name("tr")
+        people = people[1:]
         people[p].find_elements_by_tag_name("button")[-1].click()
+        time.sleep(2)
 
-        aux = people[p].find_element_by_class_name("artdeco-dropdown__content-inner").find_elements_by_tag_name("li")
+        menu = people[p].find_element_by_class_name("artdeco-dropdown__content-inner").find_elements_by_tag_name("li")
+        need_connect = False
 
-        time.sleep(1)
-
-        if m == 2:
+        for m in range(len(menu)):
+            driver.implicitly_wait(3)
             driver.find_element_by_id("content-main").click()
-
-            break
-
-        #Change to "Message"
-        elif "Enviar mensagem" in aux[m].text:
-            aux[m].click()
-
-            time.sleep(2)
+            time.sleep(1)
+            people[p].find_elements_by_tag_name("button")[-1].click()
 
             try:
+                aux = people[p].find_element_by_class_name("artdeco-dropdown__content-inner").find_elements_by_tag_name("li")
+            except:
+                people[p].find_elements_by_tag_name("button")[-1].click()
+                time.sleep(1)
+                aux = people[p].find_element_by_class_name("artdeco-dropdown__content-inner").find_elements_by_tag_name("li")
 
-                driver.find_element_by_class_name("compose-form__subject-field").send_keys(random.choice(subjects))
+
+
+            if m == 2:
+                driver.find_element_by_id("content-main").click()
+
+                break
+
+            #Change to "Send Message"
+            elif "Enviar mensagem" in aux[m].text:
+                aux[m].click()
+
+                time.sleep(2)
+
+                try:
+
+                    driver.find_element_by_class_name("compose-form__subject-field").send_keys(random.choice(subjects))
+                    time.sleep(1)
+
+                    driver.find_element_by_class_name("compose-form__message-field").send_keys(random.choice(messages))
+                    time.sleep(2)
+
+
+                    # Click send
+
+                    #main_aux = driver.find_element_by_class_name("pr3")
+                    #main_aux.find_element_by_class_name("ml4").click()
+
+
+
+
+
+            # Change to "connect"
+            elif "Conectar" in aux[m].text and need_connect:
+                aux[m].click()
                 time.sleep(1)
 
-                driver.find_element_by_class_name("compose-form__message-field").send_keys(random.choice(messages))
+                driver.find_element_by_id("connect-cta-form__invitation").send_keys(random.choice(message_to_connect))
                 time.sleep(2)
 
+                #driver.find_element_by_class_name("connect-cta-form__send").click()
 
-                # Click send
-
-                main_aux = driver.find_element_by_class_name("pr3")
-                main_aux.find_element_by_class_name("ml4").click()
-
-                time.sleep(2)
+                did_everything = True
                 break
-            except:
-                driver.find_element_by_class_name("message-overlay").find_element_by_tag_name("header").find_elements_by_tag_name("button")[-1].click()
-                time.sleep(2)
-                need_connect = True
 
+            time.sleep(3)
+            driver.find_element_by_id("content-main").click()
 
-
-        # Change to "Connect"
-        elif "Conectar" in aux[m].text and need_connect:
-            aux[m].click()
-            time.sleep(1)
-
-            driver.find_element_by_id("connect-cta-form__invitation").send_keys(message_to_connect)
-            time.sleep(2)
-
-            driver.find_element_by_class_name("connect-cta-form__send").click()
-
-            did_everything = True
-            break
-
-        time.sleep(3)
         driver.find_element_by_id("content-main").click()
 
-    driver.find_element_by_id("content-main").click()
-
-
+    try:
+        driver.find_element_by_class_name("search-results__pagination-next-button").click()
+    except:
+        pass
+    time.sleep(10)
