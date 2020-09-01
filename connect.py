@@ -110,7 +110,6 @@ for i in range(pages):
                 aux = people[p].find_element_by_class_name("artdeco-dropdown__content-inner").find_elements_by_tag_name("li")
 
 
-            time.sleep(1)
 
             if m == 2:
                 driver.find_element_by_id("content-main").click()
@@ -137,12 +136,7 @@ for i in range(pages):
                     #main_aux = driver.find_element_by_class_name("pr3")
                     #main_aux.find_element_by_class_name("ml4").click()
 
-                    time.sleep(2)
-                    break
-                except:
-                    #driver.find_element_by_class_name("message-overlay").find_element_by_tag_name("header").find_elements_by_tag_name("button")[-1].click()
-                    time.sleep(2)
-                    need_connect = True
+
 
 
 
