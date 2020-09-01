@@ -139,7 +139,6 @@ for i in range(pages):
 
 
 
-
             # Change to "connect"
             elif "Conectar" in aux[m].text and need_connect:
                 aux[m].click()
