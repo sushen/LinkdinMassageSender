@@ -44,16 +44,10 @@ driver.get("https://www.linkedin.com/")
 
 # Login
 
-f = open("user.txt", "r")
-data = f.read()
-username = str(data).split("\n")[0]
-password = str(data).split("\n")[1]
-
-
-'''# I use environment veriable base on this tutorials https://www.youtube.com/watch?v=IolxqkL7cD8
+# I use environment veriable base on this tutorials https://www.youtube.com/watch?v=IolxqkL7cD8
 username = os.environ.get('my_Linkdin_username')
 password = os.environ.get('my_Linkdin_password')
-'''
+
 
 driver.find_element_by_id("session_key").send_keys(username)
 driver.find_element_by_id("session_password").send_keys(password)
@@ -121,7 +115,7 @@ for i in range(pages):
                 except:
                     driver.find_element_by_class_name("message-overlay").find_element_by_tag_name("header").find_elements_by_tag_name("button")[-1].click()
                     time.sleep(2)
-                    need_connect = True
+                    break
 
         time.sleep(1)
 

@@ -5,6 +5,7 @@
 from selenium import webdriver
 import time
 from selenium.webdriver.common.action_chains import ActionChains
+import os
 
 
 
@@ -25,16 +26,9 @@ time_per_user = 2
 driver.get("https://www.linkedin.com/")
 
 # Login
-
-f = open("user.txt", "r")
-data = f.read()
-username = str(data).split("\n")[0]
-password = str(data).split("\n")[1]
-
-'''
 # I use environment veriable base on this tutorials https://www.youtube.com/watch?v=IolxqkL7cD8
 username = os.environ.get('my_Linkdin_username')
-password = os.environ.get('my_Linkdin_password')'''
+password = os.environ.get('my_Linkdin_password')
 
 driver.find_element_by_id("session_key").send_keys(username)
 driver.find_element_by_id("session_password").send_keys(password)
