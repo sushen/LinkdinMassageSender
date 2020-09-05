@@ -92,7 +92,7 @@ for i in range(pages):
 
                 break
 
-            time.sleep(1)
+            time.sleep(4)
 
         driver.find_element_by_id("content-main").click()
 
